@@ -41,7 +41,7 @@ if matched:
 		last_pinyin = lazy_pinyin(m[len(m) - 1])[0]
 		for i in range(1, len(target)):
 			for j in poet:
-				if j[0] == target[i] and yayun(last_pinyin, lazy_pinyin(j[len(j) - 1])[0]):
+				if j[0] == target[i] and yayun(last_pinyin, lazy_pinyin(j[len(j) - 1])[0]) and j not in ans:
 					ans.append(j)
 					break
 		if len(ans) == len(target):
