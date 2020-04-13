@@ -1,15 +1,60 @@
 import json
-from pypinyin import lazy_pinyin
+import pypinyin 
 def yayun(s1, s2):
+	if s1 in ['qi', 'ti', 'yi', 'pi', 'di', 'ji', 'li', 'bi', 'ni', 'mi', 'xi', 'ri', 'si', 'zi', 'ci', 'shi', 'zhi', 'chi'] and s2 in ['qi', 'ti', 'yi', 'pi', 'di', 'ji', 'li', 'bi', 'ni', 'mi', 'xi', 'ri', 'si', 'zi', 'ci', 'shi', 'zhi', 'chi']:
+		if s1 in ['qi', 'ti', 'yi', 'pi', 'di', 'ji', 'li', 'bi', 'ni', 'mi', 'xi'] and s2 in ['qi', 'ti', 'yi', 'pi', 'di', 'ji', 'li', 'bi', 'ni', 'mi', 'xi']:
+			return True
+		if s1 in ['ri', 'si', 'zi', 'ci', 'shi', 'zhi', 'chi'] and s2 in ['ri', 'si', 'zi', 'ci', 'shi', 'zhi', 'chi']:
+			return True
+		return False
+	if s1 in ["yun", "yuan", "me"] or s2 in ["yun", "yuan", "me"]:
+		if s1 == s2:
+			return True
+		else:
+			return False
+	if s1 == "yan":
+		s1 = "yian"
+	if s2 == "yan":
+		s2 = "yian"
+	if s1 == "ye":
+		s1 = "yie"
+	if s2 == "ye":
+		s2 = "yie"
+	if s1 == "feng":
+		s1 = "fong"
+	if s2 == "feng":
+		s2 = "fong"
+	if s1 == "meng":
+		s1 = "mong"
+	if s2 == "meng":
+		s2 = "mong"
 	y = ["a", "o", "e", "i", "u"]
 	e = ["ai", "ei", "ao", "ou", "an", "en", "ia", "ie", "in", "ue", "un", "ui", "iu"]
-	s = ["ong", "ang", "eng", "uai", "uan", "ian", "iao"]
+	s = ["ong", "ang", "eng", "uan", "ian"]
 	if s1[-3:] == s2[-3:] and s1[-3:] in s:
 		return True
 	if s1[-2:] == s2[-2:] and s1[-2:] in e and s1[-3:] not in s and s2[-3:] not in s:
 		return True
 	if s1[-1:] == s2[-1:] and s1[-1:] in y and s1[-2:] not in e and s2[-2:] not in e:
 		return True
+	return False
+def tongdiao(s1, s2):
+	a = ["āīēōūǖ", "áíéóúǘ", "ǎǐěǒǔǚ", "àìèòùǜ"]
+	for i in s1:
+		if i not in "qwertyuiopasdfghjklzxcvbnm":
+			ss1 = i
+			break
+		ss1 = "a"
+	for i in s2:
+		if i not in "qwertyuiopasdfghjklzxcvbnm":
+			ss2 = i
+			break
+		ss2 = "a"
+	for i in a:
+		if ss1 in i and ss2 in i:
+			return True
+		if ss1 == ss2:
+			return True
 	return False
 def read(fos,ci):
 	for i in range(0, 58):
@@ -44,13 +89,13 @@ def jiansuo(poet, f, target, multi):
 	matched = False
 	for m in f:
 		ans = [m]
-		last_pinyin = lazy_pinyin(m[len(m) - 1])[0]
-		last_char = [m[len(m) - 1]]
+		last_pinyin = pypinyin.lazy_pinyin(m[-1])[0]
+		last_char = [m[-1]]
 		for i in range(1, len(target)):
 			for j in poet:
-				if j[0] == target[i] and yayun(last_pinyin, lazy_pinyin(j[len(j) - 1])[0]) and j not in ans and j[len(j) - 1] not in last_char:
+				if j[0] == target[i] and yayun(last_pinyin, pypinyin.lazy_pinyin(j[-1])[0]) and j not in ans and j[-1] not in last_char and not tongdiao(pypinyin.pinyin(ans[-1][-1])[0][0], pypinyin.pinyin(j[-1]))[0][0]:
 					ans.append(j)
-					last_char.append(j[len(j) - 1])
+					last_char.append(j[-1])
 					break
 		if len(ans) == len(target):
 			matched = True
