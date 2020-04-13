@@ -7,6 +7,12 @@ def yayun(s1, s2):
 		if s1 in ['ri', 'si', 'zi', 'ci', 'shi', 'zhi', 'chi'] and s2 in ['ri', 'si', 'zi', 'ci', 'shi', 'zhi', 'chi']:
 			return True
 		return False
+	if s1 in ['wu', 'ru', 'tu', 'pu', 'su', 'du', 'fu', 'gu', 'hu', 'ku', 'lu', 'zu', 'cu', 'bu', 'nu', 'mu', 'zhu', 'chu', 'shu', 'qu', 'yu', 'ju', 'xu'] and s2 in ['wu', 'ru', 'tu', 'pu', 'su', 'du', 'fu', 'gu', 'hu', 'ku', 'lu', 'zu', 'cu', 'bu', 'nu', 'mu', 'zhu', 'chu', 'shu', 'qu', 'yu', 'ju', 'xu']:
+		if s1 in ['qu', 'yu', 'ju', 'xu'] and s2 in ['qu', 'yu', 'ju', 'xu']:
+			return True
+		if s1 in ['wu', 'ru', 'tu', 'pu', 'su', 'du', 'fu', 'gu', 'hu', 'ku', 'lu', 'zu', 'cu', 'bu', 'nu', 'mu', 'zhu', 'chu', 'shu'] and s2 in ['wu', 'ru', 'tu', 'pu', 'su', 'du', 'fu', 'gu', 'hu', 'ku', 'lu', 'zu', 'cu', 'bu', 'nu', 'mu', 'zhu', 'chu', 'shu']:
+			return True
+		return False
 	if s1 in ["yun", "yuan", "me"] or s2 in ["yun", "yuan", "me"]:
 		if s1 == s2:
 			return True
@@ -119,7 +125,7 @@ if input("检索时包含宋词吗？（默认为关闭，开启会影响检索�
 if input("生成五言诗或七言诗（默认为五言）:（5/7）") == "7":
 	fos = 7
 target = input("输入要生成的语句：")
-fin = open("data.txt", "r")
+fin = open("data" + str(fos) + ".txt", "r")
 t = fin.read()
 fin.close()
 for i in target:
