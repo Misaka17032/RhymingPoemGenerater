@@ -110,38 +110,51 @@ matched = False
 multi = False
 ci = False
 fos = 5
+can = True
+wrong_char = ""
 if input("要开启多重结果检索吗？（默认为关闭，开启有可能会影响检索速度）:(y/n)") == "y":
 	multi = True
 if input("检索时包含宋词吗？（默认为关闭，开启会影响检索速度）:(y/n)") == "y":
 	ci = True
 if input("生成五言诗或七言诗（默认为五言）:（5/7）") == "7":
 	fos = 7
-poet = read(fos, ci)
-print("数据读取完毕")
 target = input("输入要生成的语句：")
-for i in poet:
-	if i[0] == target[0]:
-		f.append(i)
-		matched = True
-if matched:
-	result, matched = jiansuo(poet, f, target, multi)
+fin = open("data.txt", "r")
+t = fin.read()
+fin.close()
+for i in target:
+	if i not in t:
+		can = False
+		wrong_char = i
+		break
+if can:
+	poet = read(fos, ci)
+	print("数据读取完毕")
+	for i in poet:
+		if i[0] == target[0]:
+			f.append(i)
+			matched = True
 	if matched:
-		print("生成结果：")
-		for i in result[0]:
-			print(i)
-		if len(result) > 1:
-			if input("还有" + str(len(result) - 1) + "个结果，要查看吗？(y/n)") == "y":
-				if len(result) > 10:
-					for i in range(1, min(len(result), int(input("结果较多，请输入你想要显示的数量：")))):
-						for j in result[i]:
-							print(j)
-						print("")
-				else:
-					for i in range(1, len(result)):
-						for j in result[i]:
-							print(j)
-						print("")
+		result, matched = jiansuo(poet, f, target, multi)
+		if matched:
+			print("生成结果：")
+			for i in result[0]:
+				print(i)
+			if len(result) > 1:
+				if input("还有" + str(len(result) - 1) + "个结果，要查看吗？(y/n)") == "y":
+					if len(result) > 10:
+						for i in range(1, min(len(result), int(input("结果较多，请输入你想要显示的数量：")))):
+							for j in result[i]:
+								print(j)
+							print("")
+					else:
+						for i in range(1, len(result)):
+							for j in result[i]:
+								print(j)
+							print("")
+		else:
+			print("没有找到符合" + target + "的诗句组合")
 	else:
-		print("没有找到符合" + target + "的诗句组合")
+		print("没有找到以" + target[0] + "字开头的诗句")
 else:
-	print("没有找到以" + target[0] + "字开头的诗句")
+	print("没有找到以" + wrong_char + "字开头的诗句")
