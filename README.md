@@ -1,5 +1,5 @@
 # RhymingPoemGenerater
-一个自动生成押韵藏头诗的工具，目前支持五言诗或七言诗。[在线网页版](http://code.aidlearning.net:8000/)
+一个自动生成押韵藏头诗的工具，目前支持五言诗或七言诗。
 ## 运行环境
 ```
 python3
