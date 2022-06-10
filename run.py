@@ -70,7 +70,7 @@ def tongdiao(s1, s2):
 	return False
 def read(fos,ci):
 	for i in range(0, 58):
-		fin = open("./poet/poet.tang." + str(i * 1000) + ".json","r")
+		fin = open("./poet/poet.tang." + str(i * 1000) + ".json", "r", encoding="utf-8")
 		s = fin.read()
 		temp = json.loads(s)
 		for j in temp:
@@ -131,7 +131,7 @@ if input("检索时包含宋词吗？（默认为关闭，开启会影响检索�
 if input("生成五言诗或七言诗（默认为五言）:（5/7）") == "7":
 	fos = 7
 target = input("输入要生成的语句：")
-fin = open("data" + str(fos) + ".txt", "r")
+fin = open("data" + str(fos) + ".txt", "r", encoding="utf-8")
 t = fin.read()
 fin.close()
 for i in target:
